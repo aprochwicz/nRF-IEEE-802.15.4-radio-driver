@@ -590,6 +590,15 @@ extern void nrf_802154_receive_failed(nrf_802154_rx_error_t error);
  */
 extern void nrf_802154_tx_started(const uint8_t * p_frame);
 
+/**
+ * @brief Notify that reception of a frame has started.
+ *
+ * @note This function should be very short to prevent dropping frames by the driver.
+ *
+ * @param[in]  p_frame  Pointer to the buffer containing PSDU of the frame being received.
+ */
+extern void nrf_802154_rx_started(const uint8_t * p_frame);
+
 #if NRF_802154_USE_RAW_API
 
 /**

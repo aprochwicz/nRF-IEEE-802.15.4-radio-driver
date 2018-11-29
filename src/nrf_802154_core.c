@@ -61,6 +61,7 @@
 #include "hal/nrf_radio.h"
 #include "hal/nrf_timer.h"
 #include "mac_features/nrf_802154_filter.h"
+#include "mac_features/nrf_802154_delayed_trx.h"
 #include "rsch/nrf_802154_rsch.h"
 #include "rsch/nrf_802154_rsch_crit_sect.h"
 
@@ -298,6 +299,15 @@ static void transmit_started_notify(void)
         nrf_802154_tx_started(p_frame);
     }
 
+}
+
+/** Notify MAC layer that reception of a frame has started. */
+static void receive_started_notify(void)
+{
+    const uint8_t * p_frame = mp_current_rx_buffer->psdu;
+
+    nrf_802154_core_hooks_rx_started(p_frame);
+    nrf_802154_rx_started(p_frame);
 }
 
 /** Notify MAC layer that a frame was transmitted. */
@@ -1887,6 +1897,8 @@ static void irq_bcmatch_state_rx(void)
                                                  ack_is_requested(mp_current_rx_buffer->psdu))))
         {
             m_flags.rx_timeslot_requested = true;
+
+            receive_started_notify();
         }
         else
         {

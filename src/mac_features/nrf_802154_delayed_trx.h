@@ -92,6 +92,28 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
                                     uint8_t  channel);
 
 /**
+ * @brief Abort started delayed transmit/receive procedure.
+ *
+ * @param[in]  term_lvl  Termination level set by request aborting ongoing operation.
+ * @param[in]  req_orig  Module that originates this request.
+ *
+ * If delayed transmit/receive procedure are not running during call, this function does nothing.
+ *
+ * @retval  true   transmit/receive procedures have been stopped.
+ */
+bool nrf_802154_delayed_trx_abort(nrf_802154_term_t term_lvl, req_originator_t req_orig);
+
+/**
+ * @brief Extends timeout timer when reception start is detected and there is not enough time
+ *        left for delayed RX operation.
+ *
+ * @param[in]  p_frame   Pointer to buffer containing PSDU of the frame that is being received.
+ *
+ * If delayed transmit/receive procedure are not running during call, this function does nothing.
+ */
+void nrf_802154_delayed_trx_rx_started_hook(const uint8_t * p_frame);
+
+/**
  *@}
  **/
 

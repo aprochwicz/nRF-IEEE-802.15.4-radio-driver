@@ -60,29 +60,29 @@ typedef uint8_t nrf_802154_state_t;
  */
 typedef uint8_t nrf_802154_tx_error_t;
 
-#define NRF_802154_TX_ERROR_NONE            0x00 // !< There is no transmit error.
-#define NRF_802154_TX_ERROR_BUSY_CHANNEL    0x01 // !< CCA reported busy channel prior to transmission.
-#define NRF_802154_TX_ERROR_INVALID_ACK     0x02 // !< Received ACK frame is other than expected.
-#define NRF_802154_TX_ERROR_NO_MEM          0x03 // !< No receive buffer is available to receive an ACK.
-#define NRF_802154_TX_ERROR_TIMESLOT_ENDED  0x04 // !< Radio timeslot ended during transmission procedure.
-#define NRF_802154_TX_ERROR_NO_ACK          0x05 // !< ACK frame was not received during timeout period.
-#define NRF_802154_TX_ERROR_ABORTED         0x06 // !< Procedure was aborted by another driver operation with FORCE priority.
-#define NRF_802154_TX_ERROR_TIMESLOT_DENIED 0x07 // !< Transmission did not start due to denied timeslot request.
+#define NRF_802154_TX_ERROR_NONE                     0x00 //!< There is no transmit error.
+#define NRF_802154_TX_ERROR_BUSY_CHANNEL             0x01 //!< CCA reported busy channel prior to transmission.
+#define NRF_802154_TX_ERROR_INVALID_ACK              0x02 //!< Received ACK frame is other than expected.
+#define NRF_802154_TX_ERROR_NO_MEM                   0x03 //!< No receive buffer is available to receive an ACK.
+#define NRF_802154_TX_ERROR_TIMESLOT_ENDED           0x04 //!< Radio timeslot ended during transmission procedure.
+#define NRF_802154_TX_ERROR_NO_ACK                   0x05 //!< ACK frame was not received during timeout period.
+#define NRF_802154_TX_ERROR_ABORTED                  0x06 //!< Procedure was aborted by another driver operation with FORCE priority.
+#define NRF_802154_TX_ERROR_DELAYED_TIMESLOT_DENIED  0x07 //!< Transmission did not start due to denied timeslot request.
 
 /**
  * @brief Possible errors during frame reception.
  */
 typedef uint8_t nrf_802154_rx_error_t;
 
-#define NRF_802154_RX_ERROR_NONE              0x00 // !< There is no receive error.
-#define NRF_802154_RX_ERROR_INVALID_FRAME     0x01 // !< Received a malformed frame.
-#define NRF_802154_RX_ERROR_INVALID_FCS       0x02 // !< Received a frame with invalid checksum.
-#define NRF_802154_RX_ERROR_INVALID_DEST_ADDR 0x03 // !< Received a frame with mismatched destination address.
-#define NRF_802154_RX_ERROR_RUNTIME           0x04 // !< A runtime error occurred (for example, CPU was held for too long).
-#define NRF_802154_RX_ERROR_TIMESLOT_ENDED    0x05 // !< Radio timeslot ended during frame reception.
-#define NRF_802154_RX_ERROR_ABORTED           0x06 // !< Procedure was aborted by another driver operation with FORCE priority.
-#define NRF_802154_RX_ERROR_TIMESLOT_DENIED   0x07 // !< Delayed reception request was rejected due to denied timeslot request.
-#define NRF_802154_RX_ERROR_TIMEOUT           0x08 // !< Frame not received during delayed reception time slot.
+#define NRF_802154_RX_ERROR_NONE                     0x00 //!< There is no receive error.
+#define NRF_802154_RX_ERROR_INVALID_FRAME            0x01 //!< Received a malformed frame.
+#define NRF_802154_RX_ERROR_INVALID_FCS              0x02 //!< Received a frame with invalid checksum.
+#define NRF_802154_RX_ERROR_INVALID_DEST_ADDR        0x03 //!< Received a frame with mismatched destination address.
+#define NRF_802154_RX_ERROR_RUNTIME                  0x04 //!< A runtime error occurred (for example, CPU was held for too long).
+#define NRF_802154_RX_ERROR_TIMESLOT_ENDED           0x05 //!< Radio timeslot ended during frame reception.
+#define NRF_802154_RX_ERROR_ABORTED                  0x06 //!< Procedure was aborted by another driver operation with FORCE priority.
+#define NRF_802154_RX_ERROR_DELAYED_TIMESLOT_DENIED  0x07 //!< Delayed reception request was rejected due to denied timeslot request.
+#define NRF_802154_RX_ERROR_DELAYED_TIMEOUT          0x08 //!< Frame not received during delayed reception time slot.
 #define NRF_802154_RX_ERROR_INVALID_LENGTH    0x09 // !< Received a frame with invalid length.
 
 /**
