@@ -308,9 +308,9 @@ uint32_t nrf_802154_timer_sched_remaining_time_get(nrf_802154_timer_t * p_timer)
 
     uint32_t now        = nrf_802154_lp_timer_time_get();
     uint32_t expiration = p_timer->t0 + p_timer->dt;
-    int32_t remaining   = expiration - now;
+    int32_t  remaining  = expiration - now;
 
-    if(remaining > 0)
+    if (remaining > 0)
     {
         return (uint32_t)remaining;
     }

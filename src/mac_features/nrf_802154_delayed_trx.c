@@ -49,17 +49,17 @@
 #include "nrf_802154_rsch.h"
 #include "timer_scheduler/nrf_802154_timer_sched.h"
 
-#define TX_SETUP_TIME 190u  ///< Time [us] needed to change channel, stop rx and setup tx procedure.
-#define RX_SETUP_TIME 190u  ///< Time [us] needed to change channel, stop tx and setup rx procedure.
+#define TX_SETUP_TIME 190u                         ///< Time [us] needed to change channel, stop rx and setup tx procedure.
+#define RX_SETUP_TIME 190u                         ///< Time [us] needed to change channel, stop tx and setup rx procedure.
 
-static const uint8_t *    mp_tx_psdu;    ///< Pointer to PHR + PSDU of the frame requested to transmit.
-static bool               m_tx_cca;      ///< If CCA should be performed prior to transmission.
-static uint8_t            m_tx_channel;  ///< Channel number on which transmission should be performed.
+static const uint8_t * mp_tx_psdu;                 ///< Pointer to PHR + PSDU of the frame requested to transmit.
+static bool            m_tx_cca;                   ///< If CCA should be performed prior to transmission.
+static uint8_t         m_tx_channel;               ///< Channel number on which transmission should be performed.
 
-static nrf_802154_timer_t m_timeout_timer;  ///< Timer for delayed RX timeout handling.
-static uint8_t            m_rx_channel;     ///< Channel number on which reception should be performed.
+static nrf_802154_timer_t m_timeout_timer;         ///< Timer for delayed RX timeout handling.
+static uint8_t            m_rx_channel;            ///< Channel number on which reception should be performed.
 
-static bool               m_dly_op_in_progress[RSCH_DLY_TS_NUM];  ///< Status of delayed operation.
+static bool m_dly_op_in_progress[RSCH_DLY_TS_NUM]; ///< Status of delayed operation.
 
 /**
  *
@@ -178,9 +178,9 @@ static void nrf_802154_rsch_delayed_rx_timeslot_started(void)
     if (result)
     {
         result = nrf_802154_request_receive(NRF_802154_TERM_802154,
-                                         REQ_ORIG_DELAYED_TRX,
-                                         notify_rx_timeslot_denied,
-                                         true);
+                                            REQ_ORIG_DELAYED_TRX,
+                                            notify_rx_timeslot_denied,
+                                            true);
         if (result)
         {
             m_timeout_timer.t0 = nrf_802154_timer_sched_time_get();
@@ -262,14 +262,16 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
 
         result = nrf_802154_rsch_delayed_timeslot_request(t0,
                                                           dt,
-                                                          timeout + nrf_802154_rx_duration_get(MAX_PACKET_SIZE, true),
+                                                          timeout +
+                                                          nrf_802154_rx_duration_get(MAX_PACKET_SIZE,
+                                                                                     true),
                                                           RSCH_PRIO_MAX,
                                                           RSCH_DLY_RX);
 
         if (result)
         {
-            m_timeout_timer.dt = timeout;
-            m_timeout_timer.callback = notify_rx_timeout;
+            m_timeout_timer.dt        = timeout;
+            m_timeout_timer.callback  = notify_rx_timeout;
             m_timeout_timer.p_context = NULL;
 
             m_rx_channel = channel;
@@ -341,7 +343,7 @@ void nrf_802154_delayed_trx_rx_started_hook(const uint8_t * p_frame)
 {
     (void)p_frame;
 
-    if(is_dly_op_in_progress(RSCH_DLY_RX))
+    if (is_dly_op_in_progress(RSCH_DLY_RX))
     {
         if (nrf_802154_timer_sched_remaining_time_get(&m_timeout_timer)
             < nrf_802154_rx_duration_get(MAX_PACKET_SIZE, true))
