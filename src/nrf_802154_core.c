@@ -301,6 +301,7 @@ static void transmit_started_notify(void)
 
 }
 
+#if !NRF_802154_DISABLE_BCC_MATCHING
 /** Notify MAC layer that reception of a frame has started. */
 static void receive_started_notify(void)
 {
@@ -309,6 +310,7 @@ static void receive_started_notify(void)
     nrf_802154_core_hooks_rx_started(p_frame);
     nrf_802154_rx_started(p_frame);
 }
+#endif
 
 /** Notify MAC layer that a frame was transmitted. */
 static void transmitted_frame_notify(uint8_t * p_ack, int8_t power, int8_t lqi)
