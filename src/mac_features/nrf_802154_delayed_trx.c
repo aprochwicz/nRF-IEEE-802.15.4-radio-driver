@@ -235,19 +235,17 @@ bool nrf_802154_delayed_trx_transmit(const uint8_t * p_data,
                                                      cca,
                                                      p_data[ACK_REQUEST_OFFSET] & ACK_REQUEST_BIT);
 
+        dly_op_start(RSCH_DLY_TX);
         result = nrf_802154_rsch_delayed_timeslot_request(t0,
                                                           dt,
                                                           timeslot_length,
                                                           RSCH_PRIO_MAX,
                                                           RSCH_DLY_TX);
 
-        if (result)
-        {
-            dly_op_start(RSCH_DLY_TX);
-        }
-        else
+        if (!result)
         {
             notify_tx_timeslot_denied(result);
+            dly_op_stop(RSCH_DLY_TX);
         }
     }
 
@@ -268,6 +266,7 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
         dt -= RX_SETUP_TIME;
         dt -= RX_RAMP_UP_TIME;
 
+        dly_op_start(RSCH_DLY_RX);
         result = nrf_802154_rsch_delayed_timeslot_request(t0,
                                                           dt,
                                                           timeout +
@@ -284,11 +283,11 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
 
             m_rx_channel = channel;
 
-            dly_op_start(RSCH_DLY_RX);
         }
         else
         {
             notify_rx_timeslot_denied(result);
+            dly_op_stop(RSCH_DLY_RX);
         }
     }
 
