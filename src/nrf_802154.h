@@ -312,7 +312,6 @@ bool nrf_802154_receive_at(uint32_t t0,
                            uint32_t timeout,
                            uint8_t  channel);
 
-
 #if NRF_802154_USE_RAW_API
 /**
  * @brief Change radio state to transmit.

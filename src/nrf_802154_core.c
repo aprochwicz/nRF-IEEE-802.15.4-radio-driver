@@ -307,6 +307,7 @@ static void receive_started_notify(void)
 {
     nrf_802154_core_hooks_rx_started();
 }
+
 #endif
 
 /** Notify MAC layer that a frame was transmitted. */
