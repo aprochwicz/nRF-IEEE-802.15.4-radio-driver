@@ -405,7 +405,7 @@ bool nrf_802154_transmit(const uint8_t * p_data, uint8_t length, bool cca);
  * blocking, but queues delayed transmission using Radio Scheduler module. If delayed transmission
  * cannot be performed (the @ref nrf_drv_radio802154_transmit_raw would return false) or requested
  * transmission timeslot is denied, the @ref nrf_drv_radio802154_transmit_failed with the
- * @ref NRF_802154_TX_ERROR_DELAYED_TIMESLOT_DENIED argument is called.
+ * @ref NRF_802154_TX_ERROR_TIMESLOT_DENIED argument is called.
  *
  * This function is designed to transmit first symbol of SHR at given time.
  *
@@ -615,15 +615,6 @@ extern void nrf_802154_receive_failed(nrf_802154_rx_error_t error);
  * @param[in]  p_frame  Pointer to the buffer containing PSDU of the frame being transmitted.
  */
 extern void nrf_802154_tx_started(const uint8_t * p_frame);
-
-/**
- * @brief Notify that reception of a frame has started.
- *
- * @note This function should be very short to prevent dropping frames by the driver.
- *
- * @param[in]  p_frame  Pointer to the buffer containing PSDU of the frame being received.
- */
-extern void nrf_802154_rx_started(const uint8_t * p_frame);
 
 #if NRF_802154_USE_RAW_API
 

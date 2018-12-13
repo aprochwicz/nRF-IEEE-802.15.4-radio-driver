@@ -90,10 +90,8 @@ bool nrf_802154_core_hooks_tx_started(const uint8_t * p_frame);
 
 /**
  * @brief Process hooks for the RX started event.
- *
- * @param[in]  p_frame  Pointer to buffer containing PSDU of the frame that is being received.
  */
-void nrf_802154_core_hooks_rx_started(const uint8_t * p_frame);
+void nrf_802154_core_hooks_rx_started(void);
 
 /**
  *@}

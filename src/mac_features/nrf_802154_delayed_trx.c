@@ -62,7 +62,9 @@ static uint8_t            m_rx_channel;            ///< Channel number on which 
 static bool m_dly_op_in_progress[RSCH_DLY_TS_NUM]; ///< Status of delayed operation.
 
 /**
+ * Start delayed timeslot operation.
  *
+ * @param[in]  dly_ts_id  Delayed timeslot ID.
  */
 static void dly_op_start(rsch_dly_ts_id_t dly_ts_id)
 {
@@ -72,7 +74,9 @@ static void dly_op_start(rsch_dly_ts_id_t dly_ts_id)
 }
 
 /**
+ * Stop delayed timeslot operation.
  *
+ * @param[in]  dly_ts_id  Delayed timeslot ID.
  */
 static void dly_op_stop(rsch_dly_ts_id_t dly_ts_id)
 {
@@ -87,7 +91,7 @@ static void dly_op_stop(rsch_dly_ts_id_t dly_ts_id)
  * @retval true   Delayed operation is in progress (waiting or ongoing).
  * @retval false  Delayed operation is not in progress.
  */
-bool is_dly_op_in_progress(rsch_dly_ts_id_t dly_ts_id)
+bool dly_op_is_in_progress(rsch_dly_ts_id_t dly_ts_id)
 {
     assert(dly_ts_id < RSCH_DLY_TS_NUM);
 
@@ -103,7 +107,7 @@ static void notify_tx_timeslot_denied(bool result)
 {
     if (!result)
     {
-        nrf_802154_notify_transmit_failed(mp_tx_psdu, NRF_802154_TX_ERROR_DELAYED_TIMESLOT_DENIED);
+        nrf_802154_notify_transmit_failed(mp_tx_psdu, NRF_802154_TX_ERROR_TIMESLOT_DENIED);
     }
 }
 
@@ -140,7 +144,7 @@ static void nrf_802154_rsch_delayed_tx_timeslot_started(void)
 {
     bool result;
 
-    assert(is_dly_op_in_progress(RSCH_DLY_TX));
+    assert(dly_op_is_in_progress(RSCH_DLY_TX));
 
     nrf_802154_pib_channel_set(m_tx_channel);
     result = nrf_802154_request_channel_update();
@@ -170,7 +174,7 @@ static void nrf_802154_rsch_delayed_rx_timeslot_started(void)
 {
     bool result;
 
-    assert(is_dly_op_in_progress(RSCH_DLY_RX));
+    assert(dly_op_is_in_progress(RSCH_DLY_RX));
 
     nrf_802154_pib_channel_set(m_rx_channel);
     result = nrf_802154_request_channel_update();
@@ -185,7 +189,11 @@ static void nrf_802154_rsch_delayed_rx_timeslot_started(void)
         {
             m_timeout_timer.t0 = nrf_802154_timer_sched_time_get();
 
-            nrf_802154_timer_sched_add(&m_timeout_timer, false);
+            nrf_802154_timer_sched_add(&m_timeout_timer, true);
+        }
+        else
+        {
+            dly_op_stop(RSCH_DLY_RX);
         }
     }
     else
@@ -204,7 +212,7 @@ bool nrf_802154_delayed_trx_transmit(const uint8_t * p_data,
     bool     result = true;
     uint16_t timeslot_length;
 
-    if (is_dly_op_in_progress(RSCH_DLY_TX))
+    if (dly_op_is_in_progress(RSCH_DLY_TX))
     {
         result = false;
     }
@@ -253,7 +261,7 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
 {
     bool result;
 
-    result = !is_dly_op_in_progress(RSCH_DLY_RX);
+    result = !dly_op_is_in_progress(RSCH_DLY_RX);
 
     if (result)
     {
@@ -289,22 +297,25 @@ bool nrf_802154_delayed_trx_receive(uint32_t t0,
 
 void nrf_802154_rsch_delayed_timeslot_started(rsch_dly_ts_id_t dly_ts_id)
 {
-    assert(dly_ts_id < RSCH_DLY_TS_NUM);
+    switch (dly_ts_id)
+    {
+        case RSCH_DLY_TX:
+            nrf_802154_rsch_delayed_tx_timeslot_started();
+            break;
 
-    if (RSCH_DLY_TX == dly_ts_id)
-    {
-        nrf_802154_rsch_delayed_tx_timeslot_started();
-    }
-    else
-    {
-        nrf_802154_rsch_delayed_rx_timeslot_started();
+        case RSCH_DLY_RX:
+            nrf_802154_rsch_delayed_rx_timeslot_started();
+            break;
+
+        default:
+            assert(false);
     }
 }
 
 void nrf_802154_rsch_delayed_timeslot_failed(rsch_dly_ts_id_t dly_ts_id)
 {
     assert(dly_ts_id < RSCH_DLY_TS_NUM);
-    assert(is_dly_op_in_progress(dly_ts_id));
+    assert(dly_op_is_in_progress(dly_ts_id));
 
     if (RSCH_DLY_TX == dly_ts_id)
     {
@@ -322,7 +333,7 @@ bool nrf_802154_delayed_trx_abort(nrf_802154_term_t term_lvl, req_originator_t r
 {
     bool result = true;
 
-    if (!is_dly_op_in_progress(RSCH_DLY_RX))
+    if (!dly_op_is_in_progress(RSCH_DLY_RX))
     {
         // No active procedures, just return true.
     }
@@ -339,11 +350,9 @@ bool nrf_802154_delayed_trx_abort(nrf_802154_term_t term_lvl, req_originator_t r
     return result;
 }
 
-void nrf_802154_delayed_trx_rx_started_hook(const uint8_t * p_frame)
+void nrf_802154_delayed_trx_rx_started_hook(void)
 {
-    (void)p_frame;
-
-    if (is_dly_op_in_progress(RSCH_DLY_RX))
+    if (dly_op_is_in_progress(RSCH_DLY_RX))
     {
         if (nrf_802154_timer_sched_remaining_time_get(&m_timeout_timer)
             < nrf_802154_rx_duration_get(MAX_PACKET_SIZE, true))

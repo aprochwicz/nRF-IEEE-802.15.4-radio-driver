@@ -302,7 +302,7 @@ bool nrf_802154_timer_sched_time_is_in_future(uint32_t now, uint32_t t0, uint32_
     return difference > 0;
 }
 
-uint32_t nrf_802154_timer_sched_remaining_time_get(nrf_802154_timer_t * p_timer)
+uint32_t nrf_802154_timer_sched_remaining_time_get(const nrf_802154_timer_t * p_timer)
 {
     assert(p_timer != NULL);
 

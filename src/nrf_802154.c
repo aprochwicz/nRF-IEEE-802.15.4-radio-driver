@@ -664,11 +664,6 @@ __WEAK void nrf_802154_tx_started(const uint8_t * p_frame)
     (void)p_frame;
 }
 
-__WEAK void nrf_802154_rx_started(const uint8_t * p_frame)
-{
-    (void)p_frame;
-}
-
 #if NRF_802154_USE_RAW_API
 __WEAK void nrf_802154_transmitted_raw(const uint8_t * p_frame,
                                        uint8_t       * p_ack,

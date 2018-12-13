@@ -107,11 +107,9 @@ bool nrf_802154_delayed_trx_abort(nrf_802154_term_t term_lvl, req_originator_t r
  * @brief Extends timeout timer when reception start is detected and there is not enough time
  *        left for delayed RX operation.
  *
- * @param[in]  p_frame   Pointer to buffer containing PSDU of the frame that is being received.
- *
  * If delayed transmit/receive procedure are not running during call, this function does nothing.
  */
-void nrf_802154_delayed_trx_rx_started_hook(const uint8_t * p_frame);
+void nrf_802154_delayed_trx_rx_started_hook(void);
 
 /**
  *@}
