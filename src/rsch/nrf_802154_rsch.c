@@ -248,21 +248,12 @@ static void delayed_timeslot_start(void * p_context)
 {
     rsch_dly_ts_id_t dly_ts_id = (rsch_dly_ts_id_t)(uint32_t)p_context;
     dly_ts_t       * p_dly_ts  = &m_dly_ts[dly_ts_id];
-    rsch_prio_t      req_prio_lvl;
 
     nrf_802154_log(EVENT_TRACE_ENTER, FUNCTION_RSCH_TIMER_DELAYED_START);
 
-    req_prio_lvl   = p_dly_ts->prio;
-    p_dly_ts->prio = RSCH_PRIO_IDLE;
+    nrf_802154_rsch_delayed_timeslot_started(dly_ts_id);
 
-    if (approved_prio_lvl_get() >= req_prio_lvl)
-    {
-        nrf_802154_rsch_delayed_timeslot_started(dly_ts_id);
-    }
-    else
-    {
-        nrf_802154_rsch_delayed_timeslot_failed(dly_ts_id);
-    }
+    p_dly_ts->prio = RSCH_PRIO_IDLE;
 
     nrf_802154_log(EVENT_TRACE_EXIT, FUNCTION_RSCH_TIMER_DELAYED_START);
 }
