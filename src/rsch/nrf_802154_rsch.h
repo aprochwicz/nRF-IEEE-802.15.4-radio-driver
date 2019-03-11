@@ -158,6 +158,9 @@ bool nrf_802154_rsch_timeslot_request(uint32_t length_us);
  * the timeslot should start and how long should it last. When requested timeslot starts the
  * @ref nrf_802154_rsch_delayed_timeslot_started is called.
  *
+ * @note @ref nrf_802154_rsch_delayed_timeslot_started may be delayed and it is up to
+ *       the called module to check the delay and decide if it causes any issues.
+ *
  * @note Time parameters use the same units that are used in the Timer Scheduler module.
  *
  * @param[in]  t0      Base time of the timestamp of the timeslot start [us].
