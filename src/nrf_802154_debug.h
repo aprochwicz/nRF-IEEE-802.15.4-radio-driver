@@ -89,16 +89,6 @@ extern "C" {
 #define FUNCTION_RSCH_TIMER_DELAYED_PREC           0x048CUL
 #define FUNCTION_RSCH_TIMER_DELAYED_START          0x048DUL
 
-#define FUNCTION_mutex_trylock                     0x4900UL
-#define FUNCTION_mutex_unlock                      0x4901UL
-#define FUNCTION_max_prio_for_delayed_timeslot_get 0x4902UL
-#define FUNCTION_required_prio_lvl_get             0x4903UL
-#define FUNCTION_prec_approved_prio_set            0x4904UL
-#define FUNCTION_all_prec_update                   0x4905UL
-#define FUNCTION_approved_prio_lvl_get             0x4906UL
-#define FUNCTION_requested_prio_lvl_is_at_least    0x4907UL
-#define FUNCTION_notify_core                       0x4908UL
-
 #define FUNCTION_CSMA_ABORT                        0x0500UL
 #define FUNCTION_CSMA_TX_FAILED                    0x0501UL
 #define FUNCTION_CSMA_TX_STARTED                   0x0502UL
@@ -113,6 +103,16 @@ extern "C" {
 #define FUNCTION_TCOOR_TIMESTAMP_PREPARE           0x0702UL
 #define FUNCTION_TCOOR_TIMESTAMP_GET               0x0703UL
 #define FUNCTION_TCOOR_SYNCHRONIZED                0x0704UL
+
+#define FUNCTION_mutex_trylock                     0x1000UL
+#define FUNCTION_mutex_unlock                      0x1001UL
+#define FUNCTION_max_prio_for_delayed_timeslot_get 0x1002UL
+#define FUNCTION_required_prio_lvl_get             0x1003UL
+#define FUNCTION_prec_approved_prio_set            0x1004UL
+#define FUNCTION_all_prec_update                   0x1005UL
+#define FUNCTION_approved_prio_lvl_get             0x1006UL
+#define FUNCTION_requested_prio_lvl_is_at_least    0x1007UL
+#define FUNCTION_notify_core                       0x1008UL
 
 #define PIN_DBG_RADIO_EVT_END                      11
 #define PIN_DBG_RADIO_EVT_DISABLED                 12

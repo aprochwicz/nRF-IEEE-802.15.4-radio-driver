@@ -264,16 +264,6 @@
             {id: "RSCH_TIMER_DELAYED_PREC", val: 0x048C, from: "TSCH", to: "RSCH", text: "delayed_timeslot_prec_request()"},
             {id: "RSCH_TIMER_DELAYED_START", val: 0x048D, from: "TSCH", to: "RSCH", text: "delayed_timeslot_start()"},
 
-            {id: "FUNCTION_mutex_trylock", val: 0x4900, from: "RSCH", to: "RSCH", text: "mutex_trylock()"},
-            {id: "FUNCTION_mutex_unlock", val: 0x4901, from: "RSCH", to: "RSCH", text: "mutex_unlock()"},
-            {id: "FUNCTION_max_prio_for_delayed_timeslot_get", val: 0x4902, from: "RSCH", to: "RSCH", text: "max_prio_for_delayed_timeslot_get()"},
-            {id: "FUNCTION_required_prio_lvl_get", val: 0x4903, from: "RSCH", to: "RSCH", text: "required_prio_lvl_get()"},
-            {id: "FUNCTION_prec_approved_prio_set", val: 0x4904, from: "RSCH", to: "RSCH", text: "prec_approved_prio_set()"},
-            {id: "FUNCTION_all_prec_update", val: 0x4905, from: "RSCH", to: "RSCH", text: "all_prec_update()"},
-            {id: "FUNCTION_approved_prio_lvl_get", val: 0x4906, from: "RSCH", to: "RSCH", text: "approved_prio_lvl_get()"},
-            {id: "FUNCTION_requested_prio_lvl_is_at_least", val: 0x4907, from: "RSCH", to: "RSCH", text: "requested_prio_lvl_is_at_least()"},
-            {id: "FUNCTION_notify_core", val: 0x4908, from: "RSCH", to: "RSCH", text: "notify_core()"},
-
             {id: "CSMA_ABORT", val: 0x0500, from: "DRIVER", to: "CSMACA", text: "nrf_802154_csma_ca_abort()"},
             {id: "CSMA_TX_FAILED", val: 0x0501, from: "DRIVER", to: "CSMACA", text: "nrf_802154_csma_ca_tx_failed_hook()"},
             {id: "CSMA_TX_STARTED", val: 0x0502, from: "DRIVER", to: "CSMACA", text: "nrf_802154_csma_ca_tx_started_hook()"},
@@ -288,6 +278,16 @@
             {id: "TCOOR_TIMESTAMP_PREPARE", val: 0x0702, from: "DRIVER", to: "TCOOR", text: "nrf_802154_timer_coord_timestamp_prepare()"},
             {id: "TCOOR_TIMESTAMP_GET", val: 0x0703, from: "DRIVER", to: "TCOOR", text: "nrf_802154_timer_coord_timestamp_get()"},
             {id: "TCOOR_SYNCHRONIZED", val: 0x0704, from: "TCOOR", to: "TCOOR", text: "nrf_802154_lp_timer_synchronized()"},
+
+            {id: "FUNCTION_mutex_trylock", val: 0x1000, from: "RSCH", to: "RSCH", text: "mutex_trylock()"},
+            {id: "FUNCTION_mutex_unlock", val: 0x1001, from: "RSCH", to: "RSCH", text: "mutex_unlock()"},
+            {id: "FUNCTION_max_prio_for_delayed_timeslot_get", val: 0x1002, from: "RSCH", to: "RSCH", text: "max_prio_for_delayed_timeslot_get()"},
+            {id: "FUNCTION_required_prio_lvl_get", val: 0x1003, from: "RSCH", to: "RSCH", text: "required_prio_lvl_get()"},
+            {id: "FUNCTION_prec_approved_prio_set", val: 0x1004, from: "RSCH", to: "RSCH", text: "prec_approved_prio_set()"},
+            {id: "FUNCTION_all_prec_update", val: 0x1005, from: "RSCH", to: "RSCH", text: "all_prec_update()"},
+            {id: "FUNCTION_approved_prio_lvl_get", val: 0x1006, from: "RSCH", to: "RSCH", text: "approved_prio_lvl_get()"},
+            {id: "FUNCTION_requested_prio_lvl_is_at_least", val: 0x1007, from: "RSCH", to: "RSCH", text: "requested_prio_lvl_is_at_least()"},
+            {id: "FUNCTION_notify_core", val: 0x1008, from: "RSCH", to: "RSCH", text: "notify_core()"},
         ];
 
         var debugDecoder = function(debug_json, debug_ptr)
