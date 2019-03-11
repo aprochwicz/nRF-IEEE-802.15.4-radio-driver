@@ -44,8 +44,8 @@
 extern "C" {
 #endif
 
-#define EVENT_TIMESLOT_REQUEST                 0x0007UL
-#define EVENT_TIMESLOT_REQUEST_RESULT          0x0008UL
+#define EVENT_TIMESLOT_REQUEST        0x0007UL
+#define EVENT_TIMESLOT_REQUEST_RESULT 0x0008UL
 
 /* Reserved for RAAL: 0x0300 - 0x047F */
 
@@ -66,7 +66,6 @@ extern "C" {
 #define FUNCTION_RAAL_EVT_SESSION_IDLE         0x0409UL
 #define FUNCTION_RAAL_EVT_HFCLK_READY          0x040AUL
 #define FUNCTION_RAAL_SIG_EVENT_MARGIN_MOVE    0x040BUL
-
 
 #ifdef __cplusplus
 }

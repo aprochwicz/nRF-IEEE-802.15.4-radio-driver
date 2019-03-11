@@ -42,30 +42,30 @@
 extern "C" {
 #endif
 
-#define NRF_802154_DEBUG_LOG_BUFFER_LEN        1024
+#define NRF_802154_DEBUG_LOG_BUFFER_LEN 1024
 
-#define EVENT_TRACE_ENTER                      0x0001UL
-#define EVENT_TRACE_EXIT                       0x0002UL
+#define EVENT_TRACE_ENTER               0x0001UL
+#define EVENT_TRACE_EXIT                0x0002UL
 
-#define PIN_DBG_RADIO_EVT_END                  11
-#define PIN_DBG_RADIO_EVT_DISABLED             12
-#define PIN_DBG_RADIO_EVT_READY                13
-#define PIN_DBG_RADIO_EVT_FRAMESTART           14
-#define PIN_DBG_RADIO_EVT_EDEND                25
-#define PIN_DBG_RADIO_EVT_PHYEND               24
+#define PIN_DBG_RADIO_EVT_END           11
+#define PIN_DBG_RADIO_EVT_DISABLED      12
+#define PIN_DBG_RADIO_EVT_READY         13
+#define PIN_DBG_RADIO_EVT_FRAMESTART    14
+#define PIN_DBG_RADIO_EVT_EDEND         25
+#define PIN_DBG_RADIO_EVT_PHYEND        24
 
-#define PIN_DBG_TIMESLOT_ACTIVE                3
-#define PIN_DBG_TIMESLOT_EXTEND_REQ            4
-#define PIN_DBG_TIMESLOT_SESSION_IDLE          16
-#define PIN_DBG_TIMESLOT_RADIO_IRQ             28
-#define PIN_DBG_TIMESLOT_FAILED                29
-#define PIN_DBG_TIMESLOT_BLOCKED               30
-#define PIN_DBG_RAAL_CRITICAL_SECTION          15
+#define PIN_DBG_TIMESLOT_ACTIVE         3
+#define PIN_DBG_TIMESLOT_EXTEND_REQ     4
+#define PIN_DBG_TIMESLOT_SESSION_IDLE   16
+#define PIN_DBG_TIMESLOT_RADIO_IRQ      28
+#define PIN_DBG_TIMESLOT_FAILED         29
+#define PIN_DBG_TIMESLOT_BLOCKED        30
+#define PIN_DBG_RAAL_CRITICAL_SECTION   15
 
-#define PIN_DBG_RTC0_EVT_REM                   31
+#define PIN_DBG_RTC0_EVT_REM            31
 
 #ifndef DEBUG_VERBOSITY
-#define DEBUG_VERBOSITY                        1
+#define DEBUG_VERBOSITY                 1
 #endif
 
 #ifndef CU_TEST
@@ -91,23 +91,25 @@ extern volatile uint32_t nrf_802154_debug_log_ptr;
 
 #endif // ENABLE_DEBUG_LOG
 
-#define nrf_802154_log_entry(function, verbosity)               \
-do                                                              \
-{                                                               \
-    if (verbosity <= DEBUG_VERBOSITY)                           \
-    {                                                           \
-        nrf_802154_log(EVENT_TRACE_ENTER, FUNCTION_##function); \
-    }                                                           \
-}while(0)
+#define nrf_802154_log_entry(function, verbosity)                     \
+    do                                                                \
+    {                                                                 \
+        if (verbosity <= DEBUG_VERBOSITY)                             \
+        {                                                             \
+            nrf_802154_log(EVENT_TRACE_ENTER, FUNCTION_ ## function); \
+        }                                                             \
+    }                                                                 \
+    while (0)
 
-#define nrf_802154_log_exit(function, verbosity)                \
-do                                                              \
-{                                                               \
-    if (verbosity <= DEBUG_VERBOSITY)                           \
-    {                                                           \
-        nrf_802154_log(EVENT_TRACE_EXIT, FUNCTION_##function);  \
-    }                                                           \
-}while(0)
+#define nrf_802154_log_exit(function, verbosity)                     \
+    do                                                               \
+    {                                                                \
+        if (verbosity <= DEBUG_VERBOSITY)                            \
+        {                                                            \
+            nrf_802154_log(EVENT_TRACE_EXIT, FUNCTION_ ## function); \
+        }                                                            \
+    }                                                                \
+    while (0)
 
 #else // CU_TEST
 
