@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <nrf.h>
 
-#include "nrf_802154_debug.h"
+#include "../nrf_802154_debug.h"
 #include "nrf_802154_priority_drop.h"
 #include "platform/clock/nrf_802154_clock.h"
 #include "raal/nrf_raal_api.h"
