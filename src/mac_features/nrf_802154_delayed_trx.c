@@ -40,6 +40,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "../nrf_802154_debug.h"
 #include "nrf_802154_config.h"
 #include "nrf_802154_const.h"
 #include "nrf_802154_notification.h"
@@ -206,6 +207,8 @@ static void notify_rx_timeout(void * p_context)
 
     (void)p_context;
 
+    nrf_802154_log(EVENT_TRACE_ENTER, FUNCTION_DTRX_RX_TIMEOUT);
+
     if (nrf_802154_timer_sched_time_is_in_future(now, sof_timestamp, max_frame_length))
     {
         // @TODO protect against infinite extensions - allow only one timer extension
@@ -219,6 +222,8 @@ static void notify_rx_timeout(void * p_context)
         dly_op_state_set(RSCH_DLY_RX, DELAYED_TRX_OP_STATE_STOPPED);
         nrf_802154_notify_receive_failed(NRF_802154_RX_ERROR_DELAYED_TIMEOUT);
     }
+
+    nrf_802154_log(EVENT_TRACE_EXIT, FUNCTION_DTRX_RX_TIMEOUT);
 }
 
 /**
